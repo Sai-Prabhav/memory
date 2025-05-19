@@ -1,7 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import Ball from "./Ball";
 
-export default function Display() {
+export default function Display({ isStarted }) {
   const [color, setColor] = useState("white");
+  const [glow,setGlow]=useState(false)
+  const totalColorCount = useRef(0);
+  const level=1
   const colorMap = {
     red: "bg-red-500",
     green: "bg-green-500",
@@ -9,11 +13,31 @@ export default function Display() {
     yellow: "bg-yellow-400",
     white: "",
   };
-  return (
-    <div className=" items-center h-full p-1 flex align-middle justify-center">
-      <div
-        className={`p-4  flex w-1/4 aspect-square border-solid border-black rounded-full text-white ${colorMap[color]}`}
-      ></div>
-    </div>
-  );
+  const colorCount = useRef({
+    red: 0,
+    green: 0,
+    blue: 0,
+    yellow: 0,
+  });
+  const colors = ["red", "green", "blue", "yellow"];
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setGlow(true)
+      const glowTimeout = setTimeout(()=> setGlow(false),500)
+
+      const random = colors[Math.floor(Math.random() * (colors.length-(3-level)))];
+      colorCount.current[random]++;
+      totalColorCount.current++;
+      setColor(random);
+      console.log(colorCount,totalColorCount.current);
+      
+      if (totalColorCount.current >= Math.floor((level*4 + 4)*(1+ 2*Math.random())) ) {
+        clearInterval(interval);
+      }
+      return () => clearTimeout(glowTimeout)
+    }, 1000+500/level); // every 1 second
+
+    return () => clearInterval(interval); // cleanup when unmounted
+  }, []);
+  return <Ball color={color} glow={glow}></Ball>;
 }
