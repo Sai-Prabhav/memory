@@ -1,17 +1,21 @@
 import { useState } from "react";
 import CustomButton from "./CustomButton";
 import DisplayCount from "./DisplayCount";
-export default function Start({ setIsStarted, colorCount }) {
+export default function Start({ setIsStarted, colorCount, totalColorCount }) {
   return (
     <div className="flex flex-col items-center justify-center p-1 w-full h-full">
       <CustomButton
         onClick={() => {
           setIsStarted(true);
           const resetColorCount = {};
-          Object.keys(colorCount).forEach((color) => {
+          totalColorCount.current = 0;
+          Object.keys(colorCount.current).forEach((color) => {
             resetColorCount[color] = 0;
+            console.log(resetColorCount, "insede");
           });
-          colorCount = resetColorCount;
+
+          colorCount.current = resetColorCount;
+          console.log(resetColorCount, colorCount);
         }}
       >
         Start
