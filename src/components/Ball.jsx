@@ -10,12 +10,10 @@ export default function Ball({ color, glow }) {
   };
 
   return (
-    <div className=" items-center h-full p-1 flex align-middle justify-center">
-      <div
-        className={`p-4  flex w-1/4 aspect-square border-solid border-black rounded-full text-white ${
-          glow ? "animate-bounce" : ""
-        } ${colorMap[color]}`}
-      ></div>
-    </div>
+    <div
+      className={`p-4  flex w-1/4 aspect-square border-solid border-black rounded-full text-white ${
+        glow ? "animate-bounce" : ""
+      } ${colorMap[color]}`}
+    ></div>
   );
 }
