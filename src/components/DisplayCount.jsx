@@ -4,10 +4,19 @@ import DisplayColorCount from "./DisplayColorCount";
 function DisplayCount({ colorCount }) {
   const score = Object.entries(colorCount.current);
   return (
-    <div>
+    <div className="flex flex-row flex-wrap items-center justify-center w-full ">
       {score.map(([colorName, count]) =>
         count !== 0 ? (
-          <DisplayColorCount key={colorName} color={colorName} count={count} />
+          <div
+            className="flex flex-col items-center justify-center w-32"
+            key={colorName}
+          >
+            <DisplayColorCount
+              key={colorName}
+              color={colorName}
+              count={count}
+            />
+          </div>
         ) : null
       )}
     </div>

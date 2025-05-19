@@ -1,18 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import Ball from "./Ball";
-
+import {colorMap} from './colors';
 export default function Display({ isStarted, colorCount, setIsStarted }) {
   const [color, setColor] = useState("white");
   const [glow, setGlow] = useState(false);
   const totalColorCount = useRef(0);
   const level = 1;
-  const colorMap = {
-    red: "bg-red-500",
-    green: "bg-green-500",
-    blue: "bg-blue-500",
-    yellow: "bg-yellow-400",
-    white: "",
-  };
+  
 
   const colors = ["red", "green", "blue", "yellow"];
   useEffect(() => {
